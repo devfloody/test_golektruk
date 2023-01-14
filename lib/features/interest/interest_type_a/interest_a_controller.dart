@@ -13,8 +13,6 @@ class InterestTypeANotifier extends StateNotifier<List<double>> {
         admin = 1500;
         interest = (principal * rate);
         principal = principal + interest - admin;
-        state = state..add(principal);
-        print(state);
         print("Month $i: Total savings = $principal");
       } else if (principal > 500000 && principal <= 10000000) {
         rate = 0.03;
