@@ -4,22 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:test_golektruk/features/interest/interest_type_a/interest_a_controller.dart';
+import 'package:test_golektruk/features/interest/interest_controller.dart';
 
 import '../../../utils/fonts/app_font.dart';
 
-class InterestTypeA extends HookConsumerWidget {
-  const InterestTypeA({super.key});
+class InterestTypeB extends HookConsumerWidget {
+  const InterestTypeB({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final principalCtrl = useTextEditingController();
-    const months = 6;
-    final principal = ref.watch(interestTypeAProvider);
+    final monthCtrl = useTextEditingController();
+    final principal = ref.watch(interestNotifierProvider);
     final formKey = GlobalKey<FormState>();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Hitung Bunga Tipe A"),
+        title: const Text("Hitung Bunga Tipe B"),
         titleTextStyle: AppFont.poppinsMedium.copyWith(
           fontSize: 16,
           color: Colors.black,
@@ -34,22 +34,44 @@ class InterestTypeA extends HookConsumerWidget {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextFormField(
-                controller: principalCtrl,
-                keyboardType: TextInputType.number,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Jumlah tabungan harus diisi";
-                  }
-                  return null;
-                },
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  hintText: "Masukkan Jumlah Tabungan",
-                  hintStyle: AppFont.poppinsRegular.copyWith(fontSize: 14),
-                  labelText: "Jumlah Tabungan",
-                  labelStyle: AppFont.poppinsMedium,
-                ),
+              Column(
+                children: [
+                  TextFormField(
+                    controller: principalCtrl,
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Jumlah tabungan harus diisi";
+                      }
+                      return null;
+                    },
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      hintText: "Masukkan Jumlah Tabungan",
+                      hintStyle: AppFont.poppinsRegular.copyWith(fontSize: 14),
+                      labelText: "Jumlah Tabungan",
+                      labelStyle: AppFont.poppinsMedium,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  TextFormField(
+                    controller: monthCtrl,
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Bulan harus diisi";
+                      }
+                      return null;
+                    },
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      hintText: "Masukkan Bulan",
+                      hintStyle: AppFont.poppinsRegular.copyWith(fontSize: 14),
+                      labelText: "Bulan",
+                      labelStyle: AppFont.poppinsMedium,
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 width: double.infinity,
@@ -57,27 +79,30 @@ class InterestTypeA extends HookConsumerWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     formKey.currentState!.validate();
-                    if (principalCtrl.text.isNotEmpty) {
+                    if (principalCtrl.text.isNotEmpty ||
+                        monthCtrl.text.isNotEmpty) {
                       if (double.parse(principalCtrl.text) >= 100000.0) {
-                        ref.read(interestTypeAProvider.notifier).hitungBunga(
+                        ref.read(interestNotifierProvider.notifier).hitungBunga(
                               principal: double.parse(principalCtrl.text),
-                              months: months,
+                              months: int.parse(monthCtrl.text),
                             );
                         log(principal.toString());
                         showDialog(
                           context: context,
                           builder: (context) {
                             return SimpleDialog(
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 24, vertical: 16),
-                              title: const Text("Bunga selama 6 bulan"),
+                              contentPadding: const EdgeInsets.all(20),
+                              title: Text(
+                                "Bunga selama ${monthCtrl.text} bulan",
+                                textAlign: TextAlign.center,
+                              ),
                               titleTextStyle: AppFont.poppinsMedium.copyWith(
                                 fontSize: 18,
                                 color: Colors.black,
                               ),
                               children: [
                                 SizedBox(
-                                  height: 160,
+                                  height: 140,
                                   child: ListView.builder(
                                     itemCount: principal.length,
                                     itemBuilder: (context, index) {
@@ -89,8 +114,10 @@ class InterestTypeA extends HookConsumerWidget {
                                       final investInIdr =
                                           idrFormat.format(investPerMonth);
                                       return Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
-                                          Text("Bulan ke $index : "),
+                                          Text("Bulan ke ${index + 1} : "),
                                           Text(investInIdr),
                                         ],
                                       );
