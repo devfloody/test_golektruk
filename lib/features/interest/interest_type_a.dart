@@ -56,8 +56,7 @@ class InterestTypeA extends HookConsumerWidget {
                 height: 48,
                 child: ElevatedButton(
                   onPressed: () {
-                    formKey.currentState!.validate();
-                    if (principalCtrl.text.isNotEmpty) {
+                    if (formKey.currentState!.validate()) {
                       if (double.parse(principalCtrl.text) >= 100000.0) {
                         ref.read(interestNotifierProvider.notifier).hitungBunga(
                               principal: double.parse(principalCtrl.text),
@@ -84,15 +83,11 @@ class InterestTypeA extends HookConsumerWidget {
                                     itemCount: principal.length,
                                     itemBuilder: (context, index) {
                                       final investPerMonth = principal[index];
-                                      final idrFormat = NumberFormat.currency(
-                                          locale: 'id',
-                                          symbol: 'Rp. ',
-                                          decimalDigits: 2);
-                                      final investInIdr =
-                                          idrFormat.format(investPerMonth);
+                                      final idrFormat =
+                                          NumberFormat.currency(locale: 'id', symbol: 'Rp. ', decimalDigits: 2);
+                                      final investInIdr = idrFormat.format(investPerMonth);
                                       return Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Text("Bulan ke ${index + 1} : "),
                                           Text(investInIdr),
