@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class CalculateModel {
   final double value;
-  final bool isChecked;
+  final bool? isChecked;
 
   CalculateModel({
     required this.value,

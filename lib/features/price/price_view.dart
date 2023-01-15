@@ -76,7 +76,7 @@ class PriceView extends HookConsumerWidget {
                     style: AppFont.poppinsSemiBold.copyWith(fontSize: 14),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

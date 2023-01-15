@@ -100,7 +100,7 @@ class InterestTypeB extends HookConsumerWidget {
                               ),
                               children: [
                                 SizedBox(
-                                  height: 140,
+                                  height: 200,
                                   child: ListView.builder(
                                     itemCount: principal.length,
                                     itemBuilder: (context, index) {
