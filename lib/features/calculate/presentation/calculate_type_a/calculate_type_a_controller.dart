@@ -70,6 +70,6 @@ class CalculateTypeANotifier extends StateNotifier<double> {
   }
 }
 
-final calculateControllerProvider = StateNotifierProvider<CalculateTypeANotifier, double>((ref) {
+final calculateControllerProvider = StateNotifierProvider.autoDispose<CalculateTypeANotifier, double>((ref) {
   return CalculateTypeANotifier();
 });

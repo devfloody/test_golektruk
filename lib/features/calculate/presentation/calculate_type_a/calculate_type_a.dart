@@ -127,7 +127,7 @@ class CalculateTypeA extends HookConsumerWidget {
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text("Operasi penambahan tidak dapat dijalankan"),
+                              content: Text("Operasi penambahan tidak dapat dijalankan, minimal 2 form telah diisi"),
                             ),
                           );
                         }
@@ -155,7 +155,7 @@ class CalculateTypeA extends HookConsumerWidget {
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text("Operasi pengurangan tidak dapat dijalankan"),
+                              content: Text("Operasi pengurangan tidak dapat dijalankan, minimal 2 form telah diisi"),
                             ),
                           );
                         }
@@ -186,7 +186,7 @@ class CalculateTypeA extends HookConsumerWidget {
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text("Operasi perkalian tidak dapat dijalankan"),
+                              content: Text("Operasi perkalian tidak dapat dijalankan, minimal 2 form telah diisi"),
                             ),
                           );
                         }
@@ -214,7 +214,7 @@ class CalculateTypeA extends HookConsumerWidget {
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text("Operasi pembagian tidak dapat dijalankan"),
+                              content: Text("Operasi pembagian tidak dapat dijalankan, minimal 2 form telah diisi"),
                             ),
                           );
                         }
@@ -226,6 +226,13 @@ class CalculateTypeA extends HookConsumerWidget {
                     ),
                   ),
                 ],
+              ),
+            ),
+            const SizedBox(height: 32),
+            Center(
+              child: Text(
+                "Hasil Kalkulasi = $calculateA",
+                style: AppFont.poppinsSemiBold.copyWith(fontSize: 18),
               ),
             ),
           ],
