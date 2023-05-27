@@ -1,4 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 class InterestNotifier extends StateNotifier<List<double>> {
   InterestNotifier() : super([]);
@@ -38,4 +39,16 @@ class InterestNotifier extends StateNotifier<List<double>> {
 final interestNotifierProvider =
     StateNotifierProvider.autoDispose<InterestNotifier, List<double>>((ref) {
   return InterestNotifier();
+});
+
+
+final formProvider = Provider<FormGroup>((ref) {
+  return FormGroup({
+    'saving' : FormControl<int>(
+      validators: [
+        Validators.required,
+        Validators.max(1000000)
+      ],
+    ),
+  });
 });
